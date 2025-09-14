@@ -6,15 +6,12 @@ import telebot
 TELEGRAM_TOKEN = os.getenv("TOKEN")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-# Проверяем, что токены есть
 if not TELEGRAM_TOKEN or not OPENAI_API_KEY:
     raise ValueError("Не найдены переменные окружения TOKEN или OPENAI_API_KEY")
 
-# Создаем клиентов
 bot = telebot.TeleBot(TELEGRAM_TOKEN)
 client = OpenAI(api_key=OPENAI_API_KEY)
 
-# Команда /start
 @bot.message_handler(commands=['start'])
 def start_message(message):
     bot.send_message(
@@ -23,7 +20,6 @@ def start_message(message):
         "Просто напиши сообщение, и я постараюсь помочь!"
     )
 
-# Обработка любых сообщений
 @bot.message_handler(func=lambda message: True)
 def handle_message(message):
     try:
